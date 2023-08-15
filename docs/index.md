@@ -72,7 +72,7 @@ namespace Zhuli
         
         public static long FromDateTime(DateTime dateTime)
         {
-            return (int)Math.Round((dateTime - Epoch).TotalSeconds * 1000);
+            return (long)Math.Round((dateTime - Epoch).TotalSeconds * 1000);
         }
 
         public static DateTime ToDateTime(long timestamp)
