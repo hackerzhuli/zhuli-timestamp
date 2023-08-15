@@ -62,23 +62,28 @@ def zhuli_timestamp_now() -> int:
 
 C# 参考实现
 ``` C#
-public class ZhuliTimestamp
+using System;
+
+namespace Zhuli
 {
-    public static readonly DateTime Epoch = new DateTime(1, 1, 1, 0, 0, 0, 0, new GregorianCalendar(GregorianCalendarTypes.USEnglish), DateTimeKind.Utc);
-    
-    public long DateTimeToTimestamp(DateTime dateTime)
+    public static class ZhuliTimestamp
     {
-        return (int)Math.Round((dateTime - Epoch).TotalSeconds * 1000);
-    }
+        public static readonly DateTime Epoch = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        
+        public static long FromDateTime(DateTime dateTime)
+        {
+            return (int)Math.Round((dateTime - Epoch).TotalSeconds * 1000);
+        }
 
-    public DateTime TimestampToDateTime(long timestamp)
-    {
-        return Epoch + new TimeSpan(timestamp * (TimeSpan.TicksPerSecond / 1000));
-    }
+        public static DateTime ToDateTime(long timestamp)
+        {
+            return Epoch + new TimeSpan(timestamp * (TimeSpan.TicksPerSecond / 1000));
+        }
 
-    public long TimestampNow()
-    {
-        return DateTimeToTimestamp(DateTime.UtcNow);
+        public static long Now()
+        {
+            return FromDateTime(DateTime.UtcNow);
+        }
     }
 }
 ```
