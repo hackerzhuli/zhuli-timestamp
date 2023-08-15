@@ -59,3 +59,26 @@ def zhuli_timestamp_now() -> int:
     return datetime_to_zhuli_timestamp(datetime.now(tz=timezone.utc))
 
 ```
+
+C# 参考实现
+``` C#
+public class ZhuliTimestamp
+{
+    public static readonly DateTime Epoch = new DateTime(1, 1, 1, 0, 0, 0, 0, new GregorianCalendar(GregorianCalendarTypes.USEnglish), DateTimeKind.Utc);
+    
+    public long DateTimeToTimestamp(DateTime dateTime)
+    {
+        return (int)Math.Round((dateTime - Epoch).TotalSeconds * 1000);
+    }
+
+    public DateTime TimestampToDateTime(long timestamp)
+    {
+        return Epoch + new TimeSpan(timestamp * (TimeSpan.TicksPerSecond / 1000));
+    }
+
+    public long TimestampNow()
+    {
+        return DateTimeToTimestamp(DateTime.UtcNow);
+    }
+}
+```
